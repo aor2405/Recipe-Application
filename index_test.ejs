@@ -1,0 +1,40 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column mb-5">
+    <div class="backgroundImage">
+        <h1>All Recipes</h1>
+        <div>
+            <a href="/recipe/new">Add Recipe</a>
+        </div>
+    </div>
+      <% for(let recipe of recipes) {%>
+      <div class="card mb-3">
+          <div class="row">
+              <!-- After screen size 'md', it will be set to 4 pixels -->
+              <div class="col-md-4">
+                  <% if(recipe.images.length) { %>
+                  <img class="img-fluid" alt="" src="<%=recipe.images[0].url %>">
+                  <% }else { %>
+                      <!-- Setting a default image if none was given -->
+                      <img class="img-fluid" alt="" src="https://res.cloudinary.com/dd2duttda/image/upload/v1625399049/YelpCamp/yg8bodg3eurf2jyewiud.jpg">
+                      <% } %>
+              </div>
+              <div class="col-md-8">
+                  <div class="card-body">
+                      <h5 class="card-ttile"><%= recipe.title %></h5>
+                      <p class="card-text"><%= recipe.description %></p>
+                      <p class="card-text">
+                          <!-- "Text-muted" gives us the greyed out text -->
+                          <small class="text-muted"><%= recipe.location %></small>
+                      </p>
+                      <a class="btn btn-primary" href="/recipe/<%=recipe._id %>">View Recipe</a>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <% } %>
+  </div>
+  
+  <footer>
+    
+</footer>

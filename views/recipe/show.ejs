@@ -1,0 +1,146 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Adding styles for star ratings -->
+<link rel="stylesheet" href="/stylesheets/stars.css">
+
+<div class="row">
+    <div class="col-6">
+        <div class="card mb-3">
+            <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <!-- We are looping through each img and getting the index of each -->
+                  <% recipe.images.forEach((img, i) => { %>
+                    <!-- If the index of the picture === index 0, add the class of active to it, otherwise, don't add it -->
+                  <div class="carousel-item <%= i === 0 ? 'active' : '' %>">
+                    <img src="<%= img.url %>" class="d-block w-100" alt="">
+                  </div>
+                  <% }) %>
+                </div>
+                <% if(recipe.images.length > 1) { %>
+                    <a class="carousel-control-prev" type="button" data-bs-target="#recipeCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" type="button" data-bs-target="#recipeCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                    </a>
+                <% } %>
+            </div>
+ 
+            <div class="card-body">
+                <h1 class="card-title text-center"><%= recipe.title %></h1>
+                <h5>Description</h5>
+                <p class="card-text"><%= recipe.description %></p>
+
+                <div class="row">
+                    <div class="col-8">
+                        <div class="content-left">
+                            <h5>Step by step guide</h5>
+                            
+                            <ol> 
+                                <% const step = recipe.method %>
+                                <% let ar = step.split('\n'); %>
+                                <% for(let i = 0; i < ar.length; i++) { %>
+                                    <li><%= ar[i] %></li>
+                                <% } %>   
+                            </ol> 
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="content-right">
+                            <h5>Ingredients</h5>
+                            <ul> 
+                                <% const ingredients = recipe.ingredients %>
+                                <% let arr = ingredients.split('\n'); %>
+                                <% for(let i = 0; i < arr.length; i++) { %>
+                                    <li><%= arr[i] %></li>
+                                <% } %>   
+                            </ul> 
+                        </div> 
+                    </div>
+                </div>
+            </div>
+
+                <% if (currentUser && recipe.author.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                <div class="card-body">
+                    <a class="card-link btn btn-info" href="/recipe/<%=recipe._id%>/edit">Edit</a>
+                    <form class="d-inline" action="/recipe/<%=recipe._id%>?_method=DELETE" method="POST">
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <% } %>
+
+            <div class="card-footer text-muted">
+                <p>Submitted by: <a href="/user/<%= recipe.author.id %>"><%= recipe.author.username %></a> <%= moment(recipe.createdAt).fromNow() %></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6">
+        <div class="card-body">
+            <!-- This form will only display if a user is logged in -->
+            <div>
+                <% if(currentUser) {%>
+                    <h2>Leave a Review</h2>
+                    <form action="/recipe/<%=recipe._id%>/reviews" method='POST' class="mb-3 validated-form" novalidate>
+                        <div class="">
+                            <fieldset class="starability-growRotate">
+                                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                <label for="first-rate1" title="Terrible">1 star</label>
+                                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                <label for="first-rate2" title="Not good">2 stars</label>
+                                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                <label for="first-rate3" title="Average">3 stars</label>
+                                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                <label for="first-rate4" title="Very good">4 stars</label>
+                                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                <label for="first-rate5" title="Amazing">5 stars</label>
+                            </fieldset>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label "for="body">Review</label>
+                                <textarea class="form-control" name="review[body]" id="body" cols="30" rows="3" required></textarea>
+                                <div class="valid-feedback">
+                                    Looks Good!
+                                </div>
+                        </div>
+                        <button class="btn-success">Submit</button>
+                    </form>
+                <% } %>
+
+                <% for(let review of recipe.reviews) { %>
+                    <div class="card mb-3">
+                      <div class="card-body">
+                        <h5 class="card-title"><%= review.author.username%></h5>
+                          <p class="starability-result" data-rating="<%= review.rating %>">
+                            Rated: <%= review.rating %> stars
+                          </p>
+                        <!-- <h6 class="card-subtitle mb-2 text-muted">By <%= review.author.username%></h6> -->
+                        <p class="card-text">Review: <%= review.body %></p>
+                        <span class="pull-right text-muted"><%= moment(review.createdAt).fromNow() %></span>
+                        <!-- If a user is logged in and that user has the same if as the user who left the review, then the delete
+                        button will show -->
+                            <% if (currentUser && review.author.equals(currentUser._id) || currentUser && currentUser.isAdmin) { %>
+                        <form action="/recipe/<%=recipe._id%>/reviews/<%=review._id%>?_method=DELETE" method="POST">
+                          <button class="btn btn-sm btn-danger">DELETE</button>
+                        </form>
+                        <% } %>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+            </div>    
+        </div> 
+    </div>
+   
+</div> 
+
+<footer>
+    <a href="/recipe">All Recipes</a>
+</footer>
+

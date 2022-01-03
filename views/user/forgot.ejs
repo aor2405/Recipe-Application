@@ -1,0 +1,22 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row mb-5">
+        <div class="">
+            <div class="card shadow">
+                <div class="card-body" style="width: 500px;">
+                    <form action="/forgot" method="POST">
+                        <legend>Forgot Password</legend>
+                        <div class="form-group mb-2">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" autofoucs class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary" value="Reset Password">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

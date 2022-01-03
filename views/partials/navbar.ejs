@@ -1,0 +1,36 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/home">Recipe</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-link active" href="/home" >Home</a>
+            <a class="nav-link active" href="/recipe" >Recipes</a>
+            <a class="nav-link active" href="/recipe/contact" >Contact</a>
+              <!-- The GET method will return a req.query object -->
+              <form action="/recipe" method="GET" class="form-inline input-group"> 
+                  <div class="form-group mx-sm-3">
+                    <!-- <label for="inputPassword2" class="sr-only">Password</label> -->
+                    <input type="text" name="search" placeholder="Recipe Search..." class="form-control mx-sm-3 mb-2">
+                  </div>
+                  <div class="form-group mx-sm-3">
+                    <button type="submit" value="Search" class="btn btn-default" style="color: white;">Search</button>
+                  </div>
+              </form>
+          </div>  
+
+        <div class="navbar-nav ms-auto"> 
+          <!-- Will only display when user is not logged in -->
+          <% if(!currentUser) { %> 
+          <a class="nav-link" href="/login">Login</a>
+          <a class="nav-link" href="/register">Register</a>
+         <% } else { %>
+          <a class="nav-link" href="/logout">Logout</a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>

@@ -1,0 +1,36 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="card col-md-4 border-dark mb-3" style="margin: 10px auto;"> <!-- Add to style sheet -->
+        <h1><%= user.firstName + " " + user.lastName %></h1>
+        <h5>Username: <%= user.username %></h5>
+        <div class="card-body">
+            <img src="<%= user.avatar %>" class="card-img-top" alt="user profile image">
+        </div>
+          <% if(currentUser && currentUser.email === user.email) { %>
+            <div>
+              <a href="/forgot">Reset Password</a>
+            </div>
+          <% } %>
+        <p>Please view all of my submitted recipes below</p>
+    </div>
+  </div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <% for(let recipe of recipes) {%>
+    <div class="col">
+      <div class="card h-100">
+        <% if(recipe.images.length) { %>
+            <img class="img-fluid" alt="" src="<%=recipe.images[0].url %>">
+            <% } %>
+        <div class="card-body">
+            <h3><a href="/recipe/<%=recipe.id%>"><%= recipe.title %></a></h3>
+          <p class="card-text"><%= recipe.description %></p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+    <% } %>
+</div>

@@ -1,0 +1,12 @@
+body {
+    background-color: #6b7177;
+}
+
+#mainContainer {
+    padding: 0;
+}
+
+.foodImage {
+    height: 500px; 
+    max-width: 100%;
+}

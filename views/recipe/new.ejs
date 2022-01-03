@@ -1,0 +1,82 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="row">
+    <h1 class="text-center">New Recipe</h1>
+    <!-- Will center the elements -->
+    <div class="col-md-6 offset-md-3">
+         <!-- This form is going to '/recipe' and it sends a post request -->
+         <!-- 'novalidate' is added to allow bootstrap to use the client side validation -->
+         <!-- enctype changed to work with image files  -->
+     <form action="/recipe" method="POST" novalidate class="validated-form" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <!-- "required is added for bootstrap validation" -->
+            <input class="form-control" type="text" id='title' name='recipe[title]' required>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" type="text" id='description' name='recipe[description]' required></textarea>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="ingredients">Ingredients</label>
+            <textarea class="form-control" type="text" id='ingredients' name='recipe[ingredients]' required></textarea>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="method">Method</label>
+            <textarea class="form-control" type="text" id='method' name='recipe[method]' required></textarea>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Upload Images</label>
+            <input type="file" class="form-control" id="formFileMultiple" name="image" multiple required>
+            <div class="invalid-feedback">
+                This Recipe would look much better with a picture.
+            </div>
+        </div>
+        <div class="mb-3">
+        <button class="btn btn-success">Add Recipe</button>
+        </div>
+        </form>
+        <a href="/recipe">All Recipes</a>
+     
+   
+    </div>
+</div>
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+      'use strict'
+    
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      const forms = document.querySelectorAll('.validated-form')
+    
+      // Loop over them and prevent submission
+      Array.from(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+    
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+    </script>

@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container d-flex justify-content-center align-items-center mt-2">
+    <div class="row mb-3 justify-content-center">
+        <div class="">
+            <div class="card shadow">
+                <img src="https://images.unsplash.com/photo-1576867757603-05b134ebc379?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+                 alt="" class="card-img-top" style="width: 500px">
+                <div class="card-body">
+                    <img src="" alt="" class="card-img top">
+                    <h3 class="card-title text-center">Register</h3>
+                    <form action="/register" method="POST" class="validated-form" novalidate>
+                        <div class="mb-3">
+                            <label class="form-label" for="username">Username</label>
+                            <input class="form-control" type="text" id='username' name='username' required autofocus>
+                        <div class="valid-feedback">
+                                Looks Good!
+                        </div>
+                            <label class="form-label" for="firstName">First Name</label>
+                            <input class="form-control" type="text" id='firstName' name='firstName' required autofocus>
+                        <div class="valid-feedback">
+                                Looks Good!
+                        </div>
+                            <label class="form-label" for="lastName">Last Name</label>
+                            <input class="form-control" type="text" id='lastName' name='lastName' required autofocus>
+                        <div class="valid-feedback">
+                            Looks Good!
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Email</label>
+                            <input class="form-control" type="email" id='email' name='email' required>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="avatar">Avatar</label>
+                            <input class="form-control" type="text" id='avatar' name='avatar' required>
+                            <div class="valid-feedback">
+                                Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Password</label>
+                            <input class="form-control" type="password" id='password' name='password' required>
+                            <div class="valid-feedback">
+                                    Looks Good!
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="admincode">Admin Code</label>
+                            <input class="form-control" type="password" id='admincode' name='admincode' required autofocus>
+                        <div class="valid-feedback">
+                                Looks Good!
+                        </div>
+                        
+                        <div class="d-grid" style="margin-top: 10px;">
+                            <button class="btn btn-success">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,73 @@
+<% layout('layouts/boilerplate') %>
+
+   <div class="row">
+    <h1 class="text-center">Edit Recipe</h1>
+    <!-- Will center the elements -->
+    <div class="col-md-6 offset-md-3">
+         <!-- This form is going to '/recipe' and it sends a post request -->
+         <form action="/recipe/<%=recipe._id%>?_method=PUT" method="POST" novalidate class="validated-form"
+            enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label>
+            <input class="form-control" type="text" id='title' name='recipe[title]' value="<%= recipe.title %>" required>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="description">Description</label>
+            <textarea class="form-control" type="text" id='location' name='recipe[description]' required><%= recipe.description %></textarea>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+        
+
+        <div class="mb-3">
+            <label class="form-label" for="ingredients">Ingredients</label>
+            <textarea class="form-control" type="text" id='ingredients' name='recipe[ingredients]' required><%= recipe.ingredients %></textarea>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label" for="method">Method</label>
+            <textarea class="form-control" type="text" id='method' name='recipe[method]' required><%= recipe.method %></textarea>
+            <div class="valid-feedback">
+                Looks Good!
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Add more image(s)...</label>
+            <input type="file" class="form-control" id="formFileMultiple" name="image" multiple>
+            <div class="invalid-feedback">
+                This recipe would look much better with a picture.
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <!-- This will return an image along with it's index -->
+            <% recipe.images.forEach(function(img, i) { %>
+                <img src="<%=img.url %>" class="img-thumbnail" alt="">
+                <div class="form-check-inline">
+                    <!-- When a checkbox is selected, its value is added to'deleteImages[]' which is an array after we parse the
+                    body -->
+                    <input type="checkbox" id="image-<%=i%>" name="deleteImages[]" value="<%=img.filename%>">
+                    <label for="image-<%=i%>"">Delete?</label>
+                </div>
+            <% }) %>
+        </div>
+
+        <div class="mb-3">
+        <button class="btn btn-info">Update Recipe</button>
+        </div>
+        </form>
+        <a href="/recipe/<%= recipe._id %>">Back To All Recipes</a>
+     
+    </div>
+</div>
+
+ 
